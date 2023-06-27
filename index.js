@@ -276,7 +276,17 @@ document.addEventListener("keydown", (event) => {
         direction = up;
       }
       break;
+    case "ArrowUp":
+      if (!(mainArray[snakeHeadY - 1][snakeHeadX] == snakeFrame)) {
+        direction = up;
+      }
+      break;
     case "s":
+      if (!(mainArray[snakeHeadY + 1][snakeHeadX] == snakeFrame)) {
+        direction = down;
+      }
+      break;
+    case "ArrowDown":
       if (!(mainArray[snakeHeadY + 1][snakeHeadX] == snakeFrame)) {
         direction = down;
       }
@@ -286,7 +296,17 @@ document.addEventListener("keydown", (event) => {
         direction = left;
       }
       break;
+    case "ArrowLeft":
+      if (!(mainArray[snakeHeadY][snakeHeadX - 1] == snakeFrame)) {
+        direction = left;
+      }
+      break;
     case "d":
+      if (!(mainArray[snakeHeadY][snakeHeadX + 1] == snakeFrame)) {
+        direction = right;
+      }
+      break;
+    case "ArrowRight":
       if (!(mainArray[snakeHeadY][snakeHeadX + 1] == snakeFrame)) {
         direction = right;
       }
