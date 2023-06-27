@@ -8,17 +8,20 @@ const down = "down";
 const right = "right";
 const left = "left";
 
+const slowButton = document.getElementById("slow");
+const averageButton = document.getElementById("average");
+const fastButton = document.getElementById("fast");
+
 const board = document.getElementById("board");
 const gameOverBox = document.getElementById("game-over");
 const scoreElement = document.getElementById("score");
-const gameOverScoreElement = document.getElementById("go-score");
 const bestElement = document.getElementById("best");
 let mainArray = [];
 let score = 0;
 let best = localStorage.getItem("best-snake-game-score");
 
-const boardHeight = 30;
-const boardWidth = 30;
+const boardHeight = 14;
+const boardWidth = 21;
 
 const totalSquares = boardHeight * boardWidth;
 
@@ -31,7 +34,7 @@ let snakeHeadY = 0;
 let snakeArray = [];
 
 let direction = up;
-let rate = 100;
+let rate = 60;
 
 let intervalUpdate = 0;
 let intervalMove = 0;
@@ -44,7 +47,7 @@ function initialize() {
   intervalUpdate = setInterval(() => {
     updateBoard();
     updateNumbers();
-  }, 10);
+  }, 1);
 }
 
 function flushBoard() {
@@ -128,6 +131,8 @@ function generateSnake() {
   }
 
   snakeArray.push([snakeHeadY, snakeHeadX]);
+  snakeArray.push([snakeHeadY + 1, snakeHeadX]);
+  snakeArray.push([snakeHeadY + 2, snakeHeadX]);
 }
 
 function makeFrame(type) {
@@ -232,7 +237,6 @@ function gameOver() {
     }
   }
 
-  gameOverScoreElement.innerText = score;
   gameOverBox.style.visibility = "visible";
 }
 
@@ -317,5 +321,30 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+slowButton.addEventListener("click", () => {
+  rate = 150;
+  slowButton.classList.add("active-button");
+  averageButton.classList.remove("active-button");
+  fastButton.classList.remove("active-button");
+  restart();
+});
+
+averageButton.addEventListener("click", () => {
+  rate = 100;
+  slowButton.classList.remove("active-button");
+  averageButton.classList.add("active-button");
+  fastButton.classList.remove("active-button");
+  restart();
+});
+
+fastButton.addEventListener("click", () => {
+  rate = 60;
+  slowButton.classList.remove("active-button");
+  averageButton.classList.remove("active-button");
+  fastButton.classList.add("active-button");
+  restart();
+});
+
 initialize();
 moveSnake();
+averageButton.click();
